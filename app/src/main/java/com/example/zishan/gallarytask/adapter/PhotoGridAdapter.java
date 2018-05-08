@@ -2,8 +2,8 @@ package com.example.zishan.gallarytask.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +11,24 @@ import android.view.ViewGroup;
 
 import com.example.zishan.gallarytask.R;
 import com.example.zishan.gallarytask.databinding.PhotoItemBinding;
-import com.example.zishan.gallarytask.network.BaseResponse;
 import com.example.zishan.gallarytask.network.Photo;
-import com.example.zishan.gallarytask.ui.MainActivity;
+import com.example.zishan.gallarytask.ui.GridImageFragment;
+import com.example.zishan.gallarytask.ui.PhotoItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.ImageViewHolder> {
 
     private Context context;
     private ArrayList<Photo> photos;
+    private final PhotoItemClickListener photoItemClickListener;
 
-    public PhotoGridAdapter(ArrayList<Photo> photos, Context context) {
+    public PhotoGridAdapter(ArrayList<Photo> photos, Context context, PhotoItemClickListener photoItemClickListener) {
         this.context = context;
         this.photos = photos;
+        this.photoItemClickListener = photoItemClickListener;
     }
 
     @NonNull
@@ -57,11 +58,20 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Imag
             photoItemBinding = DataBindingUtil.bind(viewItemBinding.getRoot());
         }
 
-        void bindData(Photo photo) {
+        void bindData(final Photo photo) {
             this.photo = photo;
             Picasso.with(context)
                     .load(urlBuilder())
                     .into(photoItemBinding.photoImage);
+
+            ViewCompat.setTransitionName(photoItemBinding.photoImage, photo.getId());
+
+            photoItemBinding.photoImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    photoItemClickListener.onPhotoItemClick(getAdapterPosition(), photos, photoItemBinding.photoImage);
+                }
+            });
         }
 
         private String urlBuilder() {

@@ -2,12 +2,14 @@ package com.example.zishan.gallarytask.network;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Photo extends RealmObject {
+public class Photo extends RealmObject implements Serializable{
     @PrimaryKey
     private String id;
     private int farm;
