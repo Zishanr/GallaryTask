@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isLoading;
     private ArrayList<Photo> photoArrayList;
     private String userQuery;
-    Realm realm;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        photoArrayList = new ArrayList<>();
         activityMainBinding.photosRecyclerView.setHasFixedSize(true);
         gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         activityMainBinding.photosRecyclerView.setLayoutManager(gridLayoutManager);
         photoGridAdapter = new PhotoGridAdapter(photoArrayList, MainActivity.this);
         activityMainBinding.photosRecyclerView.setAdapter(photoGridAdapter);
+        photoArrayList = new ArrayList<>();
 
         activityMainBinding.photosRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(BaseResponse response) {
                 isLoading = false;
-
                 mTotalPagesAvailable = Integer.parseInt(response.getPhotos().getPages());
                 photoArrayList.addAll(response.getPhotos().getPhoto());
                 photoGridAdapter.notifyDataSetChanged();
@@ -120,30 +118,28 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 realm.beginTransaction();
-                realm.copyToRealmOrUpdate(photoArrayList); // Persist unmanaged objects
+                realm.copyToRealmOrUpdate(photoArrayList);
                 realm.commitTransaction();
-
             }
 
             @Override
             public void onFail(Call<BaseResponse> call, Boolean networkError) {
                 isLoading = false;
-
                 if (networkError) {
-                    searchDataData();
+                    fetchDataFromDB();
                 }
             }
         });
 
     }
 
-    private void searchDataData() {
+    private void fetchDataFromDB() {
         photoArrayList.clear();
-        RealmResults<Photo> result2 = realm.where(Photo.class)
+        RealmResults<Photo> dbPhotoListData = realm.where(Photo.class)
                 .equalTo("searchString", userQuery)
                 .findAll();
 
-        photoArrayList.addAll(result2);
+        photoArrayList.addAll(dbPhotoListData);
         photoGridAdapter.notifyDataSetChanged();
     }
 

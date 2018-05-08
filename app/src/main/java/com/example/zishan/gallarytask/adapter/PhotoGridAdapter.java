@@ -16,15 +16,16 @@ import com.example.zishan.gallarytask.network.Photo;
 import com.example.zishan.gallarytask.ui.MainActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.ImageViewHolder> {
 
     private Context context;
-    private List<Photo> photos;
+    private ArrayList<Photo> photos;
 
-    public PhotoGridAdapter(List<Photo> photos, Context context) {
+    public PhotoGridAdapter(ArrayList<Photo> photos, Context context) {
         this.context = context;
         this.photos = photos;
     }
@@ -72,7 +73,6 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Imag
             builder.append(photo.getId());
             builder.append("_");
             builder.append(photo.getSecret());
-//            builder.append("_m");
             builder.append(".jpg");
 
             return builder.toString();
