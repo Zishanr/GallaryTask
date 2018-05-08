@@ -72,7 +72,7 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Imag
             builder.append(photo.getId());
             builder.append("_");
             builder.append(photo.getSecret());
-            builder.append("_m");
+//            builder.append("_m");
             builder.append(".jpg");
 
             return builder.toString();

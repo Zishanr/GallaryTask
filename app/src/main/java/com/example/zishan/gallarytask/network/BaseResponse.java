@@ -2,7 +2,7 @@ package com.example.zishan.gallarytask.network;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class BaseResponse {
@@ -21,10 +21,10 @@ public class BaseResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public class Photos {
         private int page;
-
+        private String pages;
         private int perpage;
 
-        private List<Photo> photo;
+        private ArrayList<Photo> photo;
 
         public int getPage() {
             return page;
@@ -34,8 +34,12 @@ public class BaseResponse {
             return perpage;
         }
 
-        public List<Photo> getPhoto() {
+        public ArrayList<Photo> getPhoto() {
             return photo;
+        }
+
+        public String getPages() {
+            return pages;
         }
     }
 }
