@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 import com.example.zishan.gallarytask.R;
 import com.example.zishan.gallarytask.databinding.PhotoItemBinding;
 import com.example.zishan.gallarytask.network.Photo;
-import com.example.zishan.gallarytask.ui.Constants;
-import com.example.zishan.gallarytask.ui.GridImageFragment;
+import com.example.zishan.gallarytask.util.Constants;
 import com.example.zishan.gallarytask.ui.PhotoItemClickListener;
 import com.squareup.picasso.Picasso;
 

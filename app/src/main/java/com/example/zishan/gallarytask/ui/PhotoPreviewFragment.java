@@ -10,12 +10,11 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.zishan.gallarytask.R;
 import com.example.zishan.gallarytask.databinding.FragmentPreviewBinding;
 import com.example.zishan.gallarytask.network.Photo;
+import com.example.zishan.gallarytask.util.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

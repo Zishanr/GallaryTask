@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
@@ -24,6 +23,8 @@ import com.example.zishan.gallarytask.network.BaseCallback;
 import com.example.zishan.gallarytask.network.BaseResponse;
 import com.example.zishan.gallarytask.network.Photo;
 import com.example.zishan.gallarytask.network.RequestController;
+import com.example.zishan.gallarytask.util.Constants;
+import com.example.zishan.gallarytask.util.Utils;
 
 import java.util.ArrayList;
 
@@ -186,15 +187,8 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
         showSearchView.hideOrShowSearchView(Boolean.FALSE);
 
         if (getActivity() != null) {
-            View view = getActivity().getCurrentFocus();
-            if (view != null) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-            }
+            Utils.hideKeyBoard(getActivity());
         }
-
         Fragment photoViewPagerFragment = PhotoViewPagerFragment.newInstance(pos, photoList);
         if (getFragmentManager() != null) {
             getFragmentManager()

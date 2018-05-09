@@ -2,7 +2,7 @@ package com.example.zishan.gallarytask.network;
 
 import android.support.annotation.NonNull;
 
-import com.example.zishan.gallarytask.ui.Constants;
+import com.example.zishan.gallarytask.util.Constants;
 
 import java.net.ConnectException;
 import java.net.UnknownHostException;

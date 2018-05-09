@@ -17,6 +17,7 @@ import com.example.zishan.gallarytask.R;
 import com.example.zishan.gallarytask.adapter.PhotoViewPagerAdapter;
 import com.example.zishan.gallarytask.databinding.FragmentViewPagerBinding;
 import com.example.zishan.gallarytask.network.Photo;
+import com.example.zishan.gallarytask.util.Constants;
 
 import java.util.ArrayList;
 

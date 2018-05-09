@@ -13,6 +13,7 @@ import android.widget.SearchView;
 
 import com.example.zishan.gallarytask.R;
 import com.example.zishan.gallarytask.databinding.ActivityMainBinding;
+import com.example.zishan.gallarytask.util.Utils;
 
 public class MainActivity extends AppCompatActivity implements ShowSearchView {
 
@@ -50,14 +51,7 @@ public class MainActivity extends AppCompatActivity implements ShowSearchView {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     ((GridImageFragment) getSupportFragmentManager().findFragmentByTag(TAG)).userSerachQuery(query);
-
-                    View view = MainActivity.this.getCurrentFocus();
-                    if (view != null) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        if (imm != null) {
-                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                        }
-                    }
+                    Utils.hideKeyBoard( MainActivity.this);
                     return true;
                 }
 

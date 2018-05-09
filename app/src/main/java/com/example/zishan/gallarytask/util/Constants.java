@@ -1,4 +1,4 @@
-package com.example.zishan.gallarytask.ui;
+package com.example.zishan.gallarytask.util;
 
 public class Constants {
     public static String SUCCESS_RESPONSE_CODE = "ok";

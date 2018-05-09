@@ -1,7 +1,7 @@
 package com.example.zishan.gallarytask.network;
 
 
-import com.example.zishan.gallarytask.ui.Constants;
+import com.example.zishan.gallarytask.util.Constants;
 
 import java.util.concurrent.TimeUnit;
 
