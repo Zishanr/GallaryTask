@@ -16,14 +16,13 @@ import com.example.zishan.gallarytask.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements ShowSearchView {
 
-    private ActivityMainBinding activityMainBinding;
     private SearchView searchView;
     public static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        DataBindingUtil.setContentView(this, R.layout.activity_main);
         initUI();
     }
 
