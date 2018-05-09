@@ -2,26 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group
-        android:id="@+id/main_menu_group">
-    <item
-        android:id="@+id/two"
-        android:title="@string/two"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/three"
-        android:title="@string/three"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/four"
-        android:title="@string/four"
-        app:showAsAction="never" />
+    <group android:id="@+id/main_menu_group">
+        <item
+            android:id="@+id/two"
+            android:title="@string/two"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/three"
+            android:title="@string/three"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/four"
+            android:title="@string/four"
+            app:showAsAction="never" />
 
-    <item
-        android:id="@+id/options_menu_main_search"
-        android:title="@string/search_hint"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/options_menu_main_search"
+            android:title="@string/search_hint"
+            app:actionViewClass="android.widget.SearchView"
+            app:showAsAction="ifRoom" />
 
     </group>
 </menu>
