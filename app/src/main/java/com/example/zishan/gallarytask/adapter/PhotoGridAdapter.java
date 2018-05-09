@@ -85,7 +85,6 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Imag
             builder.append(Constants.UNDER_SCORE);
             builder.append(photo.getSecret());
             builder.append(Constants.IMAGE_FORMAT);
-
             return builder.toString();
 
         }

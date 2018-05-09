@@ -8,6 +8,7 @@ public class Constants {
     public static int PER_PAGE = 10;
     public static String FORMAT = "json";
     public static int NO_JSON_CALLBACK = 1;
+    public static String SEARCH_STRING = "searchString";
 
 
     //    Image Api

@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ShowSearchView {
     }
 
     @Override
-    public void shoowProgressBar(Boolean shoowProgress) {
+    public void showProgressBar(Boolean shoowProgress) {
         if (shoowProgress)
             activityMainBinding.progreesBar.setVisibility(View.VISIBLE);
         else

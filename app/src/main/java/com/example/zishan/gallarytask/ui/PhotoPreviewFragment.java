@@ -78,16 +78,15 @@ public class PhotoPreviewFragment extends Fragment {
     }
 
     private String urlBuilder(Photo photo) {
-        StringBuilder builder = new StringBuilder("https://farm");
+        StringBuilder builder = new StringBuilder(Constants.IMAGE_HOST);
         builder.append(photo.getFarm());
-        builder.append(".staticflickr.com/");
+        builder.append(Constants.IMAGE_DOMAIN);
         builder.append(photo.getServer());
-        builder.append("/");
+        builder.append(Constants.SEPERATOR);
         builder.append(photo.getId());
-        builder.append("_");
+        builder.append(Constants.UNDER_SCORE);
         builder.append(photo.getSecret());
-        builder.append("_m");
-        builder.append(".jpg");
+        builder.append(Constants.IMAGE_FORMAT);
 
         return builder.toString();
 

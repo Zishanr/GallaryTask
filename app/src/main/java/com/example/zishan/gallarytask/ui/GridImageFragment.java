@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,7 +101,7 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
             public void onSuccess(BaseResponse response) {
                 isLoading = false;
                 if (mCurrentPage == 1)
-                    showSearchView.shoowProgressBar(Boolean.FALSE);
+                    showSearchView.showProgressBar(Boolean.FALSE);
                 mTotalPagesAvailable = Integer.parseInt(response.getPhotos().getPages());
                 photoArrayList.addAll(response.getPhotos().getPhoto());
                 photoGridAdapter.notifyDataSetChanged();
@@ -130,8 +129,9 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
     private void fetchDataFromDB() {
         photoArrayList.clear();
         RealmResults<Photo> dbPhotoListData = realm.where(Photo.class)
-                .equalTo("searchString", userQuery)
+                .equalTo(Constants.SEARCH_STRING, userQuery)
                 .findAll();
+        showSearchView.showProgressBar(Boolean.FALSE);
 
         photoArrayList.addAll(dbPhotoListData);
         photoGridAdapter.notifyDataSetChanged();
@@ -143,7 +143,7 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
         userQuery = query;
         searchDataForQuery(userQuery, mCurrentPage);
         if (mCurrentPage == 1)
-            showSearchView.shoowProgressBar(Boolean.TRUE);
+            showSearchView.showProgressBar(Boolean.TRUE);
         showSearchView.showSearchText(Boolean.FALSE);
     }
 
