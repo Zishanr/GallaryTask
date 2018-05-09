@@ -93,14 +93,16 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
     }
 
 
-    private void searchDataForQuery(String query, int mCurrentPage) {
+    private void searchDataForQuery(String query, int currentPage) {
         Call<BaseResponse> responseCall = RequestController.getInstance().createService().searchFlickerImage(Constants.FLICKER_IMAGE_METHOD, Constants.FLICKER_API_KEY,
-                query, Constants.PER_PAGE, mCurrentPage, Constants.FORMAT, Constants.NO_JSON_CALLBACK);
+                query, Constants.PER_PAGE, currentPage, Constants.FORMAT, Constants.NO_JSON_CALLBACK);
 
         responseCall.enqueue(new BaseCallback<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse response) {
                 isLoading = false;
+                if (mCurrentPage == 1)
+                    showSearchView.shoowProgressBar(Boolean.FALSE);
                 mTotalPagesAvailable = Integer.parseInt(response.getPhotos().getPages());
                 photoArrayList.addAll(response.getPhotos().getPhoto());
                 photoGridAdapter.notifyDataSetChanged();
@@ -140,6 +142,9 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
         mCurrentPage = 1;
         userQuery = query;
         searchDataForQuery(userQuery, mCurrentPage);
+        if (mCurrentPage == 1)
+            showSearchView.shoowProgressBar(Boolean.TRUE);
+        showSearchView.showSearchText(Boolean.FALSE);
     }
 
 

@@ -8,4 +8,12 @@ public class Constants {
     public static int PER_PAGE = 10;
     public static String FORMAT = "json";
     public static int NO_JSON_CALLBACK = 1;
+
+
+    //    Image Api
+    public static String IMAGE_HOST = "https://farm";
+    public static String IMAGE_DOMAIN = ".staticflickr.com/";
+    public static String SEPERATOR = "/";
+    public static String UNDER_SCORE = "_";
+    public static String IMAGE_FORMAT = ".jpg";
 }

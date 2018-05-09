@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.zishan.gallarytask.R;
 import com.example.zishan.gallarytask.databinding.PhotoItemBinding;
 import com.example.zishan.gallarytask.network.Photo;
+import com.example.zishan.gallarytask.ui.Constants;
 import com.example.zishan.gallarytask.ui.GridImageFragment;
 import com.example.zishan.gallarytask.ui.PhotoItemClickListener;
 import com.squareup.picasso.Picasso;
@@ -75,15 +76,15 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Imag
         }
 
         private String urlBuilder() {
-            StringBuilder builder = new StringBuilder("https://farm");
+            StringBuilder builder = new StringBuilder(Constants.IMAGE_HOST);
             builder.append(photo.getFarm());
-            builder.append(".staticflickr.com/");
+            builder.append(Constants.IMAGE_DOMAIN);
             builder.append(photo.getServer());
-            builder.append("/");
+            builder.append(Constants.SEPERATOR);
             builder.append(photo.getId());
-            builder.append("_");
+            builder.append(Constants.UNDER_SCORE);
             builder.append(photo.getSecret());
-            builder.append(".jpg");
+            builder.append(Constants.IMAGE_FORMAT);
 
             return builder.toString();
 

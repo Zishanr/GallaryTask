@@ -16,13 +16,15 @@ import com.example.zishan.gallarytask.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements ShowSearchView {
 
+    private ActivityMainBinding activityMainBinding;
     private SearchView searchView;
     public static final String TAG = MainActivity.class.getSimpleName();
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this, R.layout.activity_main);
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         initUI();
     }
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements ShowSearchView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.main, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -75,11 +78,28 @@ public class MainActivity extends AppCompatActivity implements ShowSearchView {
 
     @Override
     public void hideOrShowSearchView(Boolean hideOrShow) {
-        if (searchView != null) {
+        if (searchView != null && menu != null) {
             if (hideOrShow)
-                searchView.setVisibility(View.VISIBLE);
+                menu.setGroupVisible(R.id.main_menu_group, hideOrShow);
             else
-                searchView.setVisibility(View.GONE);
+                menu.setGroupVisible(R.id.main_menu_group, hideOrShow);
+
         }
+    }
+
+    @Override
+    public void showSearchText(Boolean showSearch) {
+        if (showSearch)
+            activityMainBinding.tvNoRecordFound.setVisibility(View.VISIBLE);
+        else
+            activityMainBinding.tvNoRecordFound.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void shoowProgressBar(Boolean shoowProgress) {
+        if (shoowProgress)
+            activityMainBinding.progreesBar.setVisibility(View.VISIBLE);
+        else
+            activityMainBinding.progreesBar.setVisibility(View.GONE);
     }
 }
