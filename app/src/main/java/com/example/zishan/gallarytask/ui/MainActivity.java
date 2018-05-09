@@ -83,23 +83,6 @@ public class MainActivity extends AppCompatActivity implements ShowSearchView {
                 menu.setGroupVisible(R.id.main_menu_group, hideOrShow);
             else
                 menu.setGroupVisible(R.id.main_menu_group, hideOrShow);
-
         }
-    }
-
-    @Override
-    public void showSearchText(Boolean showSearch) {
-        if (showSearch)
-            activityMainBinding.tvNoRecordFound.setVisibility(View.VISIBLE);
-        else
-            activityMainBinding.tvNoRecordFound.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showProgressBar(Boolean shoowProgress) {
-        if (shoowProgress)
-            activityMainBinding.progreesBar.setVisibility(View.VISIBLE);
-        else
-            activityMainBinding.progreesBar.setVisibility(View.GONE);
     }
 }

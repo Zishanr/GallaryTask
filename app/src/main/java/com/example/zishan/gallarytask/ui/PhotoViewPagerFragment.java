@@ -3,6 +3,7 @@ package com.example.zishan.gallarytask.ui;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -21,15 +22,13 @@ import java.util.ArrayList;
 
 public class PhotoViewPagerFragment extends Fragment {
 
-    private static final String EXTRA_INITIAL_ITEM_POS = "initial_item_pos";
-    private static final String EXTRA_PHOTOS = "photos";
     private FragmentViewPagerBinding fragmentViewPagerBinding;
 
     public static PhotoViewPagerFragment newInstance(int currentItem, ArrayList<Photo> photos) {
         PhotoViewPagerFragment photoViewPagerFragment = new PhotoViewPagerFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_INITIAL_ITEM_POS, currentItem);
-        bundle.putSerializable(EXTRA_PHOTOS, photos);
+        bundle.putInt(Constants.EXTRA_INITIAL_ITEM_POS, currentItem);
+        bundle.putSerializable(Constants.EXTRA_PHOTOS, photos);
         photoViewPagerFragment.setArguments(bundle);
         return photoViewPagerFragment;
     }
@@ -45,20 +44,21 @@ public class PhotoViewPagerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentViewPagerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_pager, container, false);
         return fragmentViewPagerBinding.getRoot();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         int currentItem = 0;
         ArrayList<Photo> photos;
         if (getArguments() != null) {
-            currentItem = getArguments().getInt(EXTRA_INITIAL_ITEM_POS);
-            photos = (ArrayList<Photo>) getArguments().getSerializable(EXTRA_PHOTOS);
+            currentItem = getArguments().getInt(Constants.EXTRA_INITIAL_ITEM_POS);
+            photos = (ArrayList<Photo>) getArguments().getSerializable(Constants.EXTRA_PHOTOS);
             PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(getChildFragmentManager(), photos);
 
             ViewPager viewPager = fragmentViewPagerBinding.photoViewPager;

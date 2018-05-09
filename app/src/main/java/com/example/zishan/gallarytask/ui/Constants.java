@@ -17,4 +17,13 @@ public class Constants {
     public static String SEPERATOR = "/";
     public static String UNDER_SCORE = "_";
     public static String IMAGE_FORMAT = ".jpg";
+
+
+    //    EXTRA DATA
+    public static String EXTRA_PHOTO_ITEM = "photo";
+    public static String EXTRA_TRANSITION_NAME = "transition_name";
+
+    public static String EXTRA_INITIAL_ITEM_POS = "initial_item_pos";
+    public static String EXTRA_PHOTOS = "photo";
+
 }

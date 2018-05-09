@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.example.zishan.gallarytask.R;
@@ -51,7 +53,6 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
         } catch (ClassCastException exception) {
             exception.getStackTrace();
         }
-
     }
 
     @Nullable
@@ -93,6 +94,8 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
 
 
     private void searchDataForQuery(String query, int currentPage) {
+        if (mCurrentPage == 1)
+            gridImageRecyclerviewBinding.progreesBar.setVisibility(View.VISIBLE);
         Call<BaseResponse> responseCall = RequestController.getInstance().createService().searchFlickerImage(Constants.FLICKER_IMAGE_METHOD, Constants.FLICKER_API_KEY,
                 query, Constants.PER_PAGE, currentPage, Constants.FORMAT, Constants.NO_JSON_CALLBACK);
 
@@ -100,8 +103,13 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
             @Override
             public void onSuccess(BaseResponse response) {
                 isLoading = false;
-                if (mCurrentPage == 1)
-                    showSearchView.showProgressBar(Boolean.FALSE);
+                if (mCurrentPage == 1) {
+                    gridImageRecyclerviewBinding.progreesBar.setVisibility(View.GONE);
+                    if (!(response.getPhotos().getPhoto().size() > 0)) {
+                        gridImageRecyclerviewBinding.tvSearchImage.setText(R.string.no_result_found);
+                        gridImageRecyclerviewBinding.tvSearchImage.setVisibility(View.VISIBLE);
+                    }
+                }
                 mTotalPagesAvailable = Integer.parseInt(response.getPhotos().getPages());
                 photoArrayList.addAll(response.getPhotos().getPhoto());
                 photoGridAdapter.notifyDataSetChanged();
@@ -131,7 +139,12 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
         RealmResults<Photo> dbPhotoListData = realm.where(Photo.class)
                 .equalTo(Constants.SEARCH_STRING, userQuery)
                 .findAll();
-        showSearchView.showProgressBar(Boolean.FALSE);
+        gridImageRecyclerviewBinding.progreesBar.setVisibility(View.GONE);
+
+        if (dbPhotoListData != null && dbPhotoListData.size() == 0) {
+            gridImageRecyclerviewBinding.tvSearchImage.setText(R.string.no_result_found);
+            gridImageRecyclerviewBinding.tvSearchImage.setVisibility(View.VISIBLE);
+        }
 
         photoArrayList.addAll(dbPhotoListData);
         photoGridAdapter.notifyDataSetChanged();
@@ -143,8 +156,9 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
         userQuery = query;
         searchDataForQuery(userQuery, mCurrentPage);
         if (mCurrentPage == 1)
-            showSearchView.showProgressBar(Boolean.TRUE);
-        showSearchView.showSearchText(Boolean.FALSE);
+            gridImageRecyclerviewBinding.progreesBar.setVisibility(View.VISIBLE);
+
+        gridImageRecyclerviewBinding.tvSearchImage.setVisibility(View.GONE);
     }
 
 
@@ -170,12 +184,25 @@ public class GridImageFragment extends Fragment implements PhotoItemClickListene
     @Override
     public void onPhotoItemClick(int pos, ArrayList<Photo> photoList, ImageView shareImageView) {
         showSearchView.hideOrShowSearchView(Boolean.FALSE);
+
+        if (getActivity() != null) {
+            View view = getActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+        }
+
         Fragment photoViewPagerFragment = PhotoViewPagerFragment.newInstance(pos, photoList);
-        getFragmentManager()
-                .beginTransaction()
-                .addSharedElement(shareImageView, ViewCompat.getTransitionName(shareImageView))
-                .replace(R.id.container, photoViewPagerFragment)
-                .addToBackStack(null)
-                .commit();
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .addSharedElement(shareImageView, ViewCompat.getTransitionName(shareImageView))
+                    .replace(R.id.container, photoViewPagerFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

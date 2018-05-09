@@ -6,4 +6,5 @@
     <string name="search_hint">Search</string>
     <string name="image_description">Image</string>
     <string name="search_images">Search Images</string>
+    <string name="no_result_found">No Result Found</string>
 </resources>
